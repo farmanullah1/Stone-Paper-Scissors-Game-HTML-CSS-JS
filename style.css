@@ -1,5 +1,14 @@
-/* Import a nice font from Google */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+  --primary-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --neon-pink: #e94560;
+  --neon-green: #4cd137;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-dark: rgba(0,0,0,0.5);
+  --shadow-neon: rgba(233, 69, 96, 0.6);
+}
 
 * {
     margin: 0;
@@ -9,27 +18,29 @@
 }
 
 body {
-    /* Vibrant Gradient Background */
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary-bg);
     color: #fff;
-    min-height: 100vh; /* Ensure gradient covers full screen */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
 }
 
 h1 {
-    background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent dark header */
+    background-color: rgba(0, 0, 0, 0.3);
     width: 100%;
     height: 5rem;
-    line-height: 5rem; /* Centers text vertically */
+    line-height: 5rem;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    color: var(--neon-pink);
+    text-shadow: 0 0 15px rgba(233, 69, 96, 0.5);
     text-transform: uppercase;
     letter-spacing: 2px;
+    font-weight: 700;
+    box-shadow: 0 4px 15px var(--shadow-dark);
+    animation: slideDown 0.8s ease-out;
 }
-
-/* --- Choices Section & Animations --- */
 
 .choices {
     display: flex;
@@ -37,8 +48,8 @@ h1 {
     align-items: center;
     gap: 4rem;
     margin-top: 5rem;
-    /* Animation: Slide up on load */
-    animation: slideUp 0.8s ease-out;
+    perspective: 1000px;
+
 }
 
 .choice {
@@ -47,41 +58,48 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%; /* Circular containers */
-    background-color: rgba(255, 255, 255, 0.1); /* Subtle glass effect */
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: float 3s ease-in-out infinite;
 }
 
+#rock { animation-delay: 0s; }
+#paper { animation-delay: 0.5s; }
+#scissors { animation-delay: 1s; }
+
 img {
-    height: 150px;
-    width: 150px;
-    object-fit: cover; /* Ensures images don't get cut off */
-    pointer-events: none; /* Prevents glitchy image dragging */
+    height: 140px;
+    width: 140px;
+    object-fit: contain;
+    pointer-events: none;
+    filter: drop-shadow(0 5px 5px var(--shadow-dark));
+    object-fit: cover;
     border-radius: 50%;
 }
 
-/* Hover Animation: Bounce, Rotate, and Glow */
 .choice:hover {
     cursor: pointer;
-    transform: scale(1.1) rotate(5deg); /* Zoom and slight tilt */
-    background-color: rgba(255, 105, 180, 0.3); /* Neon Pink highlight */
-    box-shadow: 0 0 25px rgba(255, 105, 180, 0.7); /* Pink Glow */
+    background: rgba(233, 69, 96, 0.2);
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 30px var(--shadow-neon);
+    transform: scale(1.15) translateY(-10px);
 }
-
-
-/* --- Scoreboard Styling --- */
 
 .score-board {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5rem;
-    margin-top: 3rem;
-    background-color: rgba(0, 0, 0, 0.2); /* Darker container for scores */
+    margin-top: 4rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
     padding: 1rem 3rem;
     border-radius: 20px;
-    /* Animation: Fade in slightly later */
-    animation: fadeIn 1s ease-out 0.3s backwards;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 30px var(--shadow-dark);
+    animation: fadeIn 1s ease-out 0.5s backwards;
 }
 
 .score {
@@ -89,56 +107,134 @@ img {
 }
 
 #user-score, #comp-score {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 700;
+    color: var(--neon-green);
 }
 
 .score p:last-child {
+    font-size: 1rem;
     text-transform: uppercase;
-    font-size: 1.2rem;
     letter-spacing: 1px;
+    opacity: 0.8;
 }
-
-/* --- Message Container --- */
 
 .msg-container {
     margin-top: 4rem;
-    /* Animation: Fade in later */
-    animation: fadeIn 1s ease-out 0.6s backwards;
+    animation: fadeIn 1s ease-out 0.8s backwards;
 }
 
 #msg {
-    background-color: #ff6b6b; /* Reddish-Orange for attention */
+    background-color: #0f3460;
     color: #fff;
     font-size: 1.5rem;
     display: inline-block;
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     border-radius: 50px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    /* Animation: Gentle pulse */
-    animation: pulse 2s infinite ease-in-out;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 5px 15px var(--shadow-dark);
+    transition: all 0.3s ease;
 }
 
-/* --- Keyframe Definitions (The actual animations) --- */
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px); /* Start 50px lower */
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 107, 107, 0.5); }
-    100% { transform: scale(1); }
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        height: 4rem;
+        line-height: 4rem;
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+    }
+
+    .choices {
+        flex-direction: column;
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .choice {
+        height: 120px;
+        width: 120px;
+    }
+
+    img {
+        height: 100px;
+        width: 100px;
+    }
+
+    .score-board {
+        flex-direction: column;
+        gap: 2rem;
+        margin-top: 3rem;
+        padding: 1rem 2rem;
+    }
+
+    #user-score, #comp-score {
+        font-size: 3rem;
+    }
+
+    .score p:last-child {
+        font-size: 0.9rem;
+    }
+
+    .msg-container {
+        margin-top: 3rem;
+    }
+
+    #msg {
+        font-size: 1.2rem;
+        padding: 0.8rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        height: 3.5rem;
+        line-height: 3.5rem;
+        font-size: 1.2rem;
+    }
+
+    .choices {
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .choice {
+        height: 100px;
+        width: 100px;
+    }
+
+    img {
+        height: 80px;
+        width: 80px;
+    }
+
+    .score-board {
+        gap: 1.5rem;
+        padding: 0.8rem 1.5rem;
+    }
+
+    #user-score, #comp-score {
+        font-size: 2.5rem;
+    }
+
+    #msg {
+        font-size: 1rem;
+        padding: 0.6rem 1.5rem;
+    }
 }
