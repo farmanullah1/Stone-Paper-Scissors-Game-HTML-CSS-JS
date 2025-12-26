@@ -15,7 +15,9 @@ const genCompChoice = () => {
 
 const drawGame = () => {
   msg.innerText = "Game was Draw. Play again.";
-  msg.style.backgroundColor = "#081b31";
+  // Match the default CSS background color
+  msg.style.backgroundColor = "#0f3460"; 
+  msg.style.borderColor = "rgba(255,255,255,0.2)";
 };
 
 const showWinner = (userWin, userChoice, compChoice) => {
@@ -23,12 +25,16 @@ const showWinner = (userWin, userChoice, compChoice) => {
     userScore++;
     userScorePara.innerText = userScore;
     msg.innerText = `You win! Your ${userChoice} beats ${compChoice}`;
-    msg.style.backgroundColor = "green";
+    // USE YOUR NEON GREEN HERE
+    msg.style.backgroundColor = "#4cd137"; 
+    msg.style.borderColor = "#4cd137";
   } else {
     compScore++;
     compScorePara.innerText = compScore;
     msg.innerText = `You lost. ${compChoice} beats your ${userChoice}`;
-    msg.style.backgroundColor = "red";
+    // USE YOUR NEON RED/PINK HERE
+    msg.style.backgroundColor = "#e94560"; 
+    msg.style.borderColor = "#e94560";
   }
 };
 
